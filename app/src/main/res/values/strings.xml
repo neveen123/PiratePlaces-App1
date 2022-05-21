@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Pirate Places</string>
+    <string name="building_name1">Sci-Tech Building</string>
+    <string name="building_name2">Austin Building </string>
+    <string name="building_name3">Bate Building</string>
+    <string name="building_name4">Brewster Building</string>
+    <string name="building_name5">Main Campus Student Center</string>
+    <string name="goodbye">That\'s all for today folks!</string>
+    <string name="person_name">Allatif,Neveen</string>
+    <string name="person_name2">Smith,Ana</string>
+    <string name="person_name3">Johnson,Amy</string>
+    <string name="person_name4">Albert,Kyle</string>
+    <string name="person_name5">Rodriquez,Tania</string>
+    <string name="previous_button">Previous</string>
+    <string name="next_button">Next</string>
+    <string name="last_place_toast">"You are already on the last place".</string>
+    <string name="first_place_toast">"You are already on the first place".</string>
 </resources>
