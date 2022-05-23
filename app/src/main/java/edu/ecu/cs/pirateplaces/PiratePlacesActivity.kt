@@ -1,17 +1,24 @@
 package edu.ecu.cs.pirateplaces
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
+import java.util.Collections.list
 
+private const val TAG = "PiratePlacesActivity"
+private const val KEY_INDEX = "index"
 class PiratePlacesActivity : AppCompatActivity() {
     private lateinit var previousButton: Button
     private lateinit var nextButton: Button
+    private lateinit var checkInButton: Button
     private lateinit var buildingTextView: TextView
     private lateinit var namesTextView: TextView
+
 
     private val buildingsBank = listOf(
         Building(R.string.building_name1, R.string.person_name),
@@ -22,12 +29,20 @@ class PiratePlacesActivity : AppCompatActivity() {
     )
     private var currentIndex = 0
 
+    private val quizViewModel: QuizViewModel by lazy {
+        ViewModelProviders.of(this).get(QuizViewModel::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pirate_places)
 
+        val currentIndex = savedInstanceState?.getInt(KEY_INDEX, 0) ?: 0
+        quizViewModel.currentIndex = currentIndex
+
         previousButton = findViewById(R.id.previous_button)
         nextButton = findViewById(R.id.next_button)
+        checkInButton = findViewById(R.id.checkin_button)
         buildingTextView = findViewById(R.id.building_name)
         namesTextView = findViewById(R.id.person_name)
 
@@ -40,24 +55,67 @@ class PiratePlacesActivity : AppCompatActivity() {
             )
                 .show()
         }
-        nextButton.setOnClickListener {
-            Toast.makeText(
-                this,
-                R.string.last_place_toast,
-                Toast.LENGTH_SHORT
-            )
-                .show()
-            currentIndex = (currentIndex + 1) % buildingsBank.size
+        nextButton.setOnClickListener { view: View ->
+
+                Toast.makeText(
+                    this,
+                    R.string.last_place_toast,
+                    Toast.LENGTH_SHORT
+                )
+                    .show()}
+
+
+            //currentIndex = (currentIndex + 1) % buildingsBank.size
             //val buildingTextResId = buildingsBank[currentIndex].textResId
             //buildingTextView.setText(buildingTextResId)
+            quizViewModel.moveToNext()
+            updateBuilding()
+
+            checkInButton.setOnClickListener {
+                // val intent = Intent(this, CheckingInActivity::class.java)
+                //startActivity(intent)
+                val answerIsTrue = quizViewModel.building_name
+                val intent = CheckingInActivity.newIntent(this@PiratePlacesActivity, answerIsTrue)
+                startActivity(intent)
+            }
             updateBuilding()
         }
-        updateBuilding()
+        override fun onSaveInstanceState(savedInstanceState: Bundle) {
+            super.onSaveInstanceState(savedInstanceState)
+            Log.i(TAG, "onSaveInstanceState")
+            savedInstanceState.putInt(KEY_INDEX, quizViewModel.currentIndex)
+        }
+
+        private fun updateBuilding() {
+            // val buildingTextResId = buildingsBank[currentIndex].textResId
+            val buildingTextResId = quizViewModel.building_name
+            //val namesTextResId = buildingsBank[currentIndex].person_name
+            val namesTextResId = quizViewModel.people_names
+            buildingTextView.setText(buildingTextResId)
+            namesTextView.setText(namesTextResId)
+
+            if (currentIndex == currentIndex + 4) {
+                currentIndex - 1
+            }
+
+
+            /**val last_index =
+            buildingsBank.indexOf(Building(R.string.building_name5, R.string.person_name5))
+            while(true){
+            if (currentIndex == last_index) {
+            break
+            }
+            }**/
+            /**var index = listOf<Int>().indexOfLast { buildingTextResId == 1 }
+            for (i in buildingsBank.size - 1 downTo 0) {
+            if (listOf<Int>().get(i) === 1) {
+            index = i
+            break
+            }
+            }**/
+        }
     }
 
-    private fun updateBuilding() {
-        val buildingTextResId = buildingsBank[currentIndex].textResId
-        buildingTextView.setText(buildingTextResId)
-    }
-}
+
+
 
