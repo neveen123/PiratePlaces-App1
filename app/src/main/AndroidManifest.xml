@@ -10,7 +10,6 @@
         android:theme="@style/Theme.PiratePlaces">
         <activity
             android:name=".CheckingInActivity"/>
-           android:exported="true" />
         <activity
             android:name=".PiratePlacesActivity"
             android:exported="true">
