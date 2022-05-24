@@ -26,7 +26,7 @@ class CheckingInActivity : AppCompatActivity() {
         visitor_name = intent.getStringExtra(EXTRA_PERSON_NAME) ?: ""
         nameTextView=findViewById(R.id.person_name)
         checkedInTextView=findViewById(R.id.checked_in_text_view)
-        showCheckInButton = findViewById(R.id.checkin_button)
+       showCheckInButton = findViewById(R.id.checkin_button)
 
         showCheckInButton.setOnClickListener {
            setCheckedIn(true)

@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 private const val TAG = "PiratePlacesActivity"
 private const val KEY_INDEX = "index"
 
+
 class PiratePlacesActivity : AppCompatActivity() {
     private lateinit var previousButton: Button
     private lateinit var nextButton: Button
@@ -44,7 +45,7 @@ class PiratePlacesActivity : AppCompatActivity() {
 
         previousButton = findViewById(R.id.previous_button)
         nextButton = findViewById(R.id.next_button)
-        checkInButton = findViewById(R.id.checkin_button)
+        //checkInButton = findViewById(R.id.checkin_button)
         buildingTextView = findViewById(R.id.building_name)
         namesTextView = findViewById(R.id.person_name)
 
@@ -86,13 +87,16 @@ class PiratePlacesActivity : AppCompatActivity() {
             }
             updateBuilding()
         }
-        override fun onSaveInstanceState(savedInstanceState: Bundle) {
-            super.onSaveInstanceState(savedInstanceState)
-            Log.i(TAG, "onSaveInstanceState")
-            savedInstanceState.putInt(KEY_INDEX, quizViewModel.currentIndex)
+    override fun onSaveInstanceState(outState: Bundle) {
+        //override fun onSaveInstanceState(savedInstanceState: Bundle) {
+           // super.onSaveInstanceState(savedInstanceState)
+            super.onSaveInstanceState(outState)
+            outState.putInt(KEY_INDEX,quizViewModel.currentIndex)
+            //Log.i(TAG, "onSaveInstanceState")
+            //savedInstanceState.putInt(KEY_INDEX, quizViewModel.currentIndex)
         }
 
-        private fun updateBuilding() {
+    private fun updateBuilding() {
             // val buildingTextResId = buildingsBank[currentIndex].textResId
             val buildingTextResId = quizViewModel.building_name
             //val namesTextResId = buildingsBank[currentIndex].person_name
