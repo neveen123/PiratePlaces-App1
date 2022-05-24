@@ -8,8 +8,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PiratePlaces">
-        <activity
-            android:name=".CheckingInActivity"/>
+        <activity android:name=".CheckingInActivity" />
         <activity
             android:name=".PiratePlacesActivity"
             android:exported="true">

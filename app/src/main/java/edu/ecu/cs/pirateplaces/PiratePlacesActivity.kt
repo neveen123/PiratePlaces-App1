@@ -1,5 +1,7 @@
 package edu.ecu.cs.pirateplaces
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,16 +10,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
-import java.util.Collections.list
 
 private const val TAG = "PiratePlacesActivity"
 private const val KEY_INDEX = "index"
+
 class PiratePlacesActivity : AppCompatActivity() {
     private lateinit var previousButton: Button
     private lateinit var nextButton: Button
     private lateinit var checkInButton: Button
     private lateinit var buildingTextView: TextView
-    private lateinit var namesTextView: TextView
+    private lateinit var namesTextView:TextView
 
 
     private val buildingsBank = listOf(
@@ -56,26 +58,30 @@ class PiratePlacesActivity : AppCompatActivity() {
                 .show()
         }
         nextButton.setOnClickListener { view: View ->
-
+            if (quizViewModel.incrementNext) {
+                quizViewModel.moveToNext()
+                updateBuilding()
+            } else {
                 Toast.makeText(
                     this,
                     R.string.last_place_toast,
                     Toast.LENGTH_SHORT
                 )
-                    .show()}
+                    .show()}}
+
 
 
             //currentIndex = (currentIndex + 1) % buildingsBank.size
             //val buildingTextResId = buildingsBank[currentIndex].textResId
             //buildingTextView.setText(buildingTextResId)
-            quizViewModel.moveToNext()
+            //quizViewModel.moveToNext()
             updateBuilding()
 
-            checkInButton.setOnClickListener {
+            namesTextView.setOnClickListener {
                 // val intent = Intent(this, CheckingInActivity::class.java)
                 //startActivity(intent)
-                val answerIsTrue = quizViewModel.building_name
-                val intent = CheckingInActivity.newIntent(this@PiratePlacesActivity, answerIsTrue)
+             //  val answerIsTrue = quizViewModel.building_name
+                val intent = CheckingInActivity.newIntent(this,quizViewModel.building_name)
                 startActivity(intent)
             }
             updateBuilding()
@@ -93,28 +99,9 @@ class PiratePlacesActivity : AppCompatActivity() {
             val namesTextResId = quizViewModel.people_names
             buildingTextView.setText(buildingTextResId)
             namesTextView.setText(namesTextResId)
-
-            if (currentIndex == currentIndex + 4) {
-                currentIndex - 1
-            }
-
-
-            /**val last_index =
-            buildingsBank.indexOf(Building(R.string.building_name5, R.string.person_name5))
-            while(true){
-            if (currentIndex == last_index) {
-            break
-            }
-            }**/
-            /**var index = listOf<Int>().indexOfLast { buildingTextResId == 1 }
-            for (i in buildingsBank.size - 1 downTo 0) {
-            if (listOf<Int>().get(i) === 1) {
-            index = i
-            break
-            }
-            }**/
         }
     }
+
 
 
 

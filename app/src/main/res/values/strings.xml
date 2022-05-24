@@ -14,6 +14,9 @@
     <string name="previous_button">Previous</string>
     <string name="next_button">Next</string>
     <string name="checkin_button">Check-In</string>
+    <string name="checked_in">Checked In</string>
+    <string name="not_checked_in">Not Checked In</string>
+    <string name="checked_in_message">You Checked In!</string>
     <string name="last_place_toast">"You are already on the last place".</string>
     <string name="first_place_toast">"You are already on the first place".</string>
 </resources>

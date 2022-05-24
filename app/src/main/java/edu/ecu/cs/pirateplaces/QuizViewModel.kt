@@ -19,6 +19,9 @@ class QuizViewModel : ViewModel() {
     val people_names: Int
         get() = buildingsBank[currentIndex].person_name
 
+    val incrementNext: Boolean
+        get() = (currentIndex + 1) < buildingsBank.size
+
     fun moveToNext() {
         currentIndex = (currentIndex + 1) % buildingsBank.size
     }
